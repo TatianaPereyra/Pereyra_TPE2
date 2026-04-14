@@ -1,5 +1,7 @@
-export class Pen{
+import {Tool} from './Tool.js';
+export class Pen extends Tool{
     constructor(){
+        super();
         this.color = "black";
     }
 
@@ -13,15 +15,10 @@ export class Pen{
 
     //Cada que comienzo un trazo, establezco el estilo de la linea
     startDraw(ctx, x, y){
-        ctx.beginPath();
-        ctx.moveTo(x, y);
-    
+        ctx.globalCompositeOperation = "source-over"; 
         ctx.strokeStyle = this.color;
+        super.startDraw(ctx, x, y);
     }
 
-    continueDraw(ctx, x, y){
-        ctx.lineTo(x, y);
-        ctx.stroke();
-    }
 
 }

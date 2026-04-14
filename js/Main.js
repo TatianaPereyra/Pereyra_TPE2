@@ -1,4 +1,5 @@
 import {Pen} from "./tools/Pen.js";
+import {Eraser} from "./tools/Eraser.js";
 
 "use strict";
 
@@ -6,17 +7,22 @@ import {Pen} from "./tools/Pen.js";
 //    DECLARACION DE CONSTANTES Y VARIABLES
 //-----------------------------------------------------
 
-
-//------------Canvas-----------------------------------
+//-------------------Canvas----------------------------
 const CANVAS = document.querySelector("#canvas");
 let ctx = CANVAS.getContext("2d");
 
 
+//----------Comportamiento de herramientas--------
+let pen = new Pen();
+let eraser = new Eraser();
+
+let herramientaActual;
+let isHerramientaClicked = false;
+
 //-----------Comportamiento del mouse------------------
 let mouseDown = false;
-let isPenClicked = false; 
 let lastPosX, lastPosY;
-let pen = null;
+
 
 
 
@@ -30,13 +36,11 @@ document.addEventListener('mousedown', (e) =>{
     lastPosX = e.offsetX;
     lastPosY = e.offsetY;
 
-    if(isPenClicked){ //verifico si previamente se selecciono el pincel antes de inicializarlo
-        pen = new Pen();
-        pen.startDraw(ctx, lastPosX, lastPosY);
-    } else if(isEraserClicked){
-        eraser = new Eraser();
-        eraser.startDraw();
+    if(herramientaActual != null){
+        isHerramientaClicked = true;
+        herramientaActual.startDraw(ctx, lastPosX, lastPosY);
     }
+
 });
 
 //mientras se mantiene el mouse, se dibuja
@@ -44,15 +48,15 @@ document.addEventListener('mousemove', (e) =>{
     lastPosX = e.offsetX;
     lastPosY = e.offsetY;
 
-    if(mouseDown && pen!= null && isPenClicked){
-        pen.continueDraw(ctx, lastPosX, lastPosY);
+    if(isHerramientaClicked && mouseDown && herramientaActual!= null){
+        herramientaActual.continueDraw(ctx, lastPosX, lastPosY);
     }
+
 });
 
-//cuando se suelta, finaliza
+//cuando se suelta
 document.addEventListener('mouseup', (e) =>{
     mouseDown = false;
-    pen = null;
 });
 
 
@@ -65,11 +69,27 @@ function drawCanvas(){
     ctx.fillRect(0, 0, 1000, 700);
 }
 
-
+function cleanCanvas(){
+    CANVAS.cleanCanvas;
+    drawCanvas();
+}
 
 function main(){
     drawCanvas();
-    isPenClicked = true;
 }
 
 main();
+
+//-----------------------------------------------------
+//               EVENTOS DE BOTONES
+//-----------------------------------------------------
+
+document.querySelector("#pen").addEventListener('click', (e) =>{
+    herramientaActual = pen;
+});
+
+document.querySelector("#eraser").addEventListener('click', (e) => {
+    herramientaActual = eraser;
+});
+
+document.querySelector("#cleanAll").addEventListener('click', cleanCanvas);

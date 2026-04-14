@@ -1,49 +1,19 @@
-//Clase "abstracta" de herramientas para prevenir comportamiento similar
-class Tool{
-    constructor(posX, posY, color, style, type){
-        this.posX = posX;
-        this.posY = posY;
-        this.color = color;
-        this.style = style;
-        this.type = type;
+//Clase "abstracta" de herramientas para definir comportamiento similar.
+export class Tool{
+
+    //----------------------------------------
+    //          DIBUJO SOBRE EL CANVAS
+    //---------------------------------------
+
+    //Definicion de metodos
+    startDraw(ctx, x, y){
+        ctx.beginPath();
+        ctx.moveTo(x, y);
     }
 
-    //setter y getters 
-    setStyle(boolean){
-        this.style = boolean;
+    continueDraw(ctx, x, y){
+        ctx.lineTo(x, y);
+        ctx.stroke();
     }
-
-    getStyle(){
-        return this.style;
-    }
-
-    setColor(color){
-        this.fill = color;
-    }
-
-    getColor(){
-        return this.fill;
-    }
-
-    getType(){
-        return this.type;
-    }
-
-    setPosX(x){
-        this.x = x;
-    }
-
-    getPosX(){
-        return this.posX;
-    }
-
-    setPosY(y){
-        this.posY = y;
-    }
-
-    getPosY(){
-        return this.posY;
-    }
-
 
 }
