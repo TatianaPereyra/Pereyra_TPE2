@@ -4,14 +4,31 @@ import { GrisFilter } from "../filters/SimpleFilter/GrisFilter.js";
 import { SepiaFilter } from "../filters/SimpleFilter/SepiaFilter.js";
 import { NegativoFilter } from "../filters/SimpleFilter/NegativoFilter.js";
 import { BinarioFilter } from "../filters/SimpleFilter/BinarioFilter.js";
+import { Filter } from "../filters/Filter.js";
 
 export class ImageController{
+    /** 
+     * @param {Object} ctx - Contexto del canvas (CanvasRenderingContext2D)
+     */
     constructor(ctx){
         this.ctx = ctx;
         this.image = new Image();
-        this.data = null;
+        this.originalImageData = null;
+        this.copiaImageData = null; //modifico la copia
     }
 
+    //--------------------------------------------------------------
+    //             CARGA DE IMAGENES Y BOTONES DE FILTRO
+    //---------------------------------------------------------------
+
+     /** 
+     * @param {File} img - Archivo de imagen cargado por el usuario
+     * 
+     * @description
+     * Asigna la URL del archivo a la imagen, limpia el canvas,
+     * y al cargar la imagen: la dibuja, guarda sus píxeles originales,
+     * crea una copia de trabajo y genera los controles de filtros.
+     */
     loadImage(img){ 
         this.image.src = URL.createObjectURL(img);
 
@@ -19,12 +36,18 @@ export class ImageController{
 
         this.image.onload = () => {  //cuando carga, la dibujo y me guardo el arreglo de pixeles.
             this.ctx.drawImage(this.image, 0, 0);
-            this.data = this.ctx.getImageData(0,0, this.image.width, this.image.height);
+            this.originalImageData = this.ctx.getImageData(0,0, this.image.width, this.image.height);
+            this.setCopiaImageData();
             this.putButtons();
         }
     }
 
-    putButtons(){ //genero los elementos que necesito de forma dinamica
+     /** 
+     * @description
+     * Crea dinámicamente un selector de filtros (select) y un botón "Aplicar".
+     * Se ejecuta automáticamente al cargar una imagen.
+     */
+    putButtons(){ 
         let div = document.querySelector("#adicional");
 
         div.innerHTML = '';
@@ -59,6 +82,16 @@ export class ImageController{
         this.waitButton();
     }
 
+
+    //----------------------------------------------------------------
+    //                 APLICACION DE FILTROS
+    //----------------------------------------------------------------
+
+     /** 
+     * @description
+     * Escucha el clic en el botón "Aplicar filtro", obtiene el filtro seleccionado
+     * y ejecuta aplicarFiltro() con ese valor.
+     */
     waitButton(){
         let select = document.querySelector("#filtroSelect");
         let boton = document.querySelector("#aplicarFiltro");
@@ -69,6 +102,26 @@ export class ImageController{
         });
     }   
 
+     /** 
+     * @description
+     * Crea una copia independiente del ImageData original usando Uint8ClampedArray.
+     * Permite aplicar filtros sin modificar el original.
+     */
+    setCopiaImageData(){
+        this.copiaImageData = new ImageData(
+        new Uint8ClampedArray(this.originalImageData.data),  // copia del arreglo
+        this.originalImageData.width,
+        this.originalImageData.height);;
+    }
+
+
+     /** 
+     * @param {string} tipo - Nombre del filtro a aplicar (grises, sepia, brillo, negativo, binario)
+     * 
+     * @description
+     * Instancia el filtro correspondiente, lo aplica sobre la copia del ImageData,
+     * redibuja el resultado en el canvas y actualiza la copia para futuros filtros.
+     */
     aplicarFiltro(tipo){
         let filtro;
 
@@ -78,9 +131,11 @@ export class ImageController{
             case "brillo": filtro = new BrilloFilter();break;
             case "negativo": filtro = new NegativoFilter();break;
             case "binario": filtro = new BinarioFilter();break;
+            default: break;
         }
 
-        let nuevoImageData = filtro.aplicar(this.data);
+        let nuevoImageData = filtro.aplicar(this.copiaImageData);
         this.ctx.putImageData(nuevoImageData, 0, 0);
+        this.setCopiaImageData();
     }
 }
