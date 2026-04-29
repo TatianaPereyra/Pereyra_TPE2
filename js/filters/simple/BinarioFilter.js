@@ -1,8 +1,14 @@
 import { Filter } from "../Filter.js";
-
-
 export class BinarioFilter extends Filter{
-
+    /**
+     * @param {Array} imageData - arregl ImageData
+     * 
+     * @description
+     * Recorre los pixeles de la imagen, y verifica el nivel de brillo para determinar
+     * si pasarlo a blanco o negro.
+     * 
+     * @returns - ImageData modificado
+     */
     aplicar(imageData){
         let umbral = 128;
         let data = imageData.data;

@@ -51,15 +51,16 @@ document.querySelector("#eraser").addEventListener('click', (e) => {
 
 document.querySelector("#clean").addEventListener('click', cleanCanvas);
 
+let input = document.getElementById("fileInput");
 
+/**
+ * @description
+ * Toma el valor del input y lo envia a imageController para que procese la imagen.
+ */
 function cargar(){
-    const input = document.querySelector("#fileInput");
     imageController.loadImage(input.files[0]);
     input.value = "";
-
 }
-
-let input = document.getElementById("fileInput");
 
 document.querySelector("#load").addEventListener("click", (e) => {
     input.click();
@@ -81,9 +82,14 @@ document.querySelector("#colorPicker").addEventListener("input",(e)=>{
 document.querySelector("#download")
     .addEventListener("click", descargarImagen);
 
+
+/**
+ * @description
+ * Toma la imagen del canvas, y crea un elemento link de descargar con la misma.
+ */
 function descargarImagen(){
 
-    const link = document.createElement("a");
+    let link = document.createElement("a");
 
     link.download = "mi-imagen.png";
     link.href = CANVAS.toDataURL("image/png");
@@ -91,6 +97,7 @@ function descargarImagen(){
     link.click();
 }
 
+//POPUP DE INGRESO
 let popup = document.querySelector("#popupInicio");
 
 document.querySelector("#btnBlanco").addEventListener('click', (e) =>{

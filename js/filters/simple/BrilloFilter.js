@@ -1,11 +1,19 @@
 import { Filter } from "../Filter.js";
-
 export class BrilloFilter extends Filter{
     constructor(){
         super();
-        this.valor = 1;
+        this.valor = 1; //valor por defecto
     }
 
+    /**
+     * @param {Array} imageData - ImageData de la imagen
+     * 
+     *@description
+     * Recorre los pixeles del imageData, aplicando una ecuacion para aumentar el nivel de brillo. El nivel de brillo
+     * es elegido por el usuario.
+     * 
+     * @returns - ImageData modificado.
+     */
     aplicar(imageData){
         let data = imageData.data;
         let gamma = 2 - this.valor;

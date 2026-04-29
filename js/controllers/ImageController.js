@@ -56,6 +56,11 @@ export class ImageController{
         this.valorActual = 1;
     }
 
+    /**
+     * @description
+     * Crea dinamicamente un elemento slider para controlar la cantidad de filtro de brillo y saturacion.
+     */
+
     crearSlider(){
         let min = -1;
         let max = 2;
@@ -236,7 +241,8 @@ export class ImageController{
      * @param {string} tipo - Nombre del filtro a aplicar.
      * 
      * @description
-     * Instancia el filtro correspondiente, lo aplica sobre la copia del ImageData,
+     * Instancia el filtro correspondiente (pasando los datos necesarios para la implementacion del mismo),
+     * lo aplica sobre la copia del ImageData,
      * redibuja el resultado en el canvas y actualiza la copia para futuros filtros.
      */
     aplicarFiltro(tipo){
@@ -254,6 +260,7 @@ export class ImageController{
 
             case "binario": filtro = new BinarioFilter();break;
 
+            //A los filtros que utilizan Kernel, lo envia seleccionandolo del archivo kernels.js
             case "blur": filtro = new ConvultionFilter(kernels.blur.matriz, kernels.blur.factor,
                                                        kernels.blur.width, kernels.blur.height);break;
 

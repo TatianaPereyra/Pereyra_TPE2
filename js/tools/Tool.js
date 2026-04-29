@@ -1,4 +1,9 @@
-//Clase "abstracta" de herramientas para definir comportamiento similar.
+/**
+ * @description
+ * Clase "padre" de Pen y Eraser. Define comportamiento similar entre las herramientas. 
+ * Cada herramienta modifica el metodo segun sea necesario.
+ */
+
 export class Tool{
     constructor(descripcion){
         this.descripcion = descripcion;

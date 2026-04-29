@@ -1,7 +1,14 @@
 import { Filter } from "../Filter.js";
-
 export class SepiaFilter extends Filter{
 
+        /**
+     * @param {Array} imageData - ImageData de la imagen
+     * 
+     *@description
+     * Recorre los pixeles del imageData y recalcula los valores RGB para obtener tonos sepia.
+     * 
+     * @returns - ImageData modificado.
+     */
     aplicar(imageData){
         let data = imageData.data;
         for(let i = 0; i < data.length; i+=4){

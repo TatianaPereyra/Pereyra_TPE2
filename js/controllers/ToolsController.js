@@ -61,6 +61,7 @@ export class ToolsController{
      * 
      * @param {number} x - coordenada x del canvas.
      * @param {number} y - coordenada y del canvas.
+     * Comienza el dibujo sobre el canvas. Si la herramienta es un lapiz ("pen"), aplica color al trazo.
      */
 
     startDraw( x, y){ 

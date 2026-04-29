@@ -2,6 +2,14 @@ import { Filter } from "../Filter.js";
 
 export class GrisFilter extends Filter{
 
+    /**
+     * @param {Array} imageData - ImageData de la imagen
+     * 
+     *@description
+     *Recorre los pixeles y promedia sus valores RGB para obtener una tonalidad gris.
+     * 
+     * @returns - ImageData modificado.
+     */
     aplicar(imageData){
         let data = imageData.data;
         //Aumento en 4 para cambiar de indice

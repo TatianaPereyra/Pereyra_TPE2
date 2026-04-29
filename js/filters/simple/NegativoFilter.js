@@ -2,6 +2,14 @@ import { Filter } from "../Filter.js";
 
 export class NegativoFilter extends Filter{
 
+    /**
+     * @param {Array} imageData - ImageData de la imagen
+     * 
+     *@description
+     * Recorre los pixeles del imageData, e invierte los valores RGB de los mismos.
+     * 
+     * @returns - ImageData modificado.
+     */
     aplicar(imageData){
         let data = imageData.data;
 
