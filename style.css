@@ -15,9 +15,7 @@ body{
     box-sizing: border-box;
 
     display: grid;
-    gap: 20px;
-
-    grid-template-columns: 240px 1fr 180px;
+    grid-template-columns: 1fr 1fr 180px;
     grid-template-rows: 70px 1fr;
 
     grid-template-areas:
@@ -28,7 +26,7 @@ body{
     border-radius: 30px;
 }
 
-/* PANEL FILTROS */
+/* FILTROS */
 #filters{
     grid-area: filter;
 
@@ -54,8 +52,6 @@ body{
 /* CANVAS */
 #canvas-container{
     grid-area: canvas;
-
-    background-color: #ffffff;
     border-radius: 25px;
 
     display: flex;
@@ -68,11 +64,9 @@ body{
 canvas{
     background-color: white;
     border-radius: 15px;
-    width:800px;
-    height:600px;
 }
 
-/* PANEL HERRAMIENTAS */
+/* HERRAMIENTAS */
 
 #herramientas{
     grid-area: herramientas;

@@ -25,7 +25,7 @@ export class ImageController{
     }
 
     //--------------------------------------------------------------
-    //             CARGA DE IMAGENES Y BOTONES DE FILTRO
+    //             CARGA DE IMAGENES Y CONTROLES
     //---------------------------------------------------------------
 
      /** 
@@ -64,20 +64,12 @@ export class ImageController{
     }
 
     verificarImagen(){
-        //si no hay imagen cargada lanza error y corta
-        if(this.originalImageData === null){
-            document.querySelector("#adicional").innerHTML = `<h1>No hay una imagen subida</h1>` ;
-
-            setTimeout(() => {
-                mensaje.innerHTML = "";
-            }, 2000);
-
-            return false;  
-        }
-        
-        return true;
+        return this.originalImageData === null; //devuelve true si es null
     }
 
+    mostrarAviso(){
+        alert("No se ha ingresado ninguna imagen");
+    }
     //----------------------------------------------------------------
     //                 APLICACION DE FILTROS
     //----------------------------------------------------------------
@@ -85,66 +77,117 @@ export class ImageController{
      /** 
      * @description
      * Escucha el clic en el botón del filtro, obtiene el filtro seleccionado
-     * y ejecuta aplicarFiltro() con ese valor.
+     * y ejecuta aplicarFiltro() con ese valor. Verifica si hay un ingreso de imagen antes de tomar el valor del filtro. 
+     * Si no hay una imagen subida, muestra un aviso.
      */
     waitButton(){
         //sin filtro --> muestro la imagen original
         document.querySelector("#original").addEventListener('click', (e) => {
+            if(this.verificarImagen()){
+                this.mostrarAviso();
+                return;
+            }
+
             this.limpiarControles();
             this.ctx.putImageData(this.originalImageData, 0, 0);
         });
     
         //escala de grises
         document.querySelector("#grises").addEventListener('click', (e) => {
+            if(this.verificarImagen()){
+                this.mostrarAviso();
+                return;
+            }
+
             this.limpiarControles();
             this.aplicarFiltro("grises");
         });
 
          //sepia
         document.querySelector("#sepia").addEventListener('click', (e) => {
+            if(this.verificarImagen()){
+                this.mostrarAviso();
+                return;
+            }
+
             this.limpiarControles();
             this.aplicarFiltro("sepia");
         });
         
         //filtro de brillo, creo los controles necesarios
         document.querySelector("#brillo").addEventListener("click", () => {
+            if(this.verificarImagen()){
+                this.mostrarAviso();
+                return;
+            }
+
             this.crearControles();
         });
 
         //negativo
         document.querySelector("#negativo").addEventListener('click', (e) => {
+            if(this.verificarImagen()){
+                this.mostrarAviso();
+                return;
+            }
+
             this.limpiarControles();
             this.aplicarFiltro("negativo");
         });
 
         //blur
         document.querySelector("#blur").addEventListener('click', (e) => {
+            if(this.verificarImagen()){
+                this.mostrarAviso();
+                return;
+            }
+
             this.limpiarControles();
             this.aplicarFiltro("blur");
         });
 
         //saturacion
         document.querySelector("#saturacion").addEventListener('click', (e) =>{
+            if(this.verificarImagen()){
+                this.mostrarAviso();
+                return;
+            }
+
            this.crearControles();
         });
 
         //deteccion de bordes
         document.querySelector("#borderD").addEventListener('click', (e) =>{
+            if(this.verificarImagen()){
+                this.mostrarAviso();
+                return;
+            }
+
             this.limpiarControles();
             this.aplicarFiltro("borderD");
         });
 
         //sharpen
         document.querySelector("#sharpen").addEventListener('click', (e) =>{
+            if(this.verificarImagen()){
+                this.mostrarAviso();
+                return;
+            }
+
             this.limpiarControles();
             this.aplicarFiltro("sharpen");
         });
 
         //relieve
         document.querySelector("#relieve").addEventListener('click', (e) =>{
+            if(this.verificarImagen()){
+                this.mostrarAviso();
+                return;
+            }
+
             this.limpiarControles();
             this.aplicarFiltro("relieve");
-        })
+        });
     
     }
 

@@ -20,7 +20,8 @@ export class ToolsController{
     //----------------------------------------------
     /**
      * @description
-     * Espera eventos el mouse. Segun el evento que reciba, realiza una determinada accion.
+     * Espera eventos el mouse. Segun el evento que reciba, realiza una determinada accion. Escucha los eventos
+     * especificos del canvas.
      * 
      * @example
      * evento: mousedown, accion: inicializa el dibujo con la herramientan (siempre que exista una)
@@ -28,13 +29,13 @@ export class ToolsController{
      * evento: mouseup, accion: finaliza el dibujo
      */
     waitMouseEvents(){
-        document.addEventListener('mousedown', (e) =>{
+        canvas.addEventListener('mousedown', (e) =>{
             if(this.tool!= null){ //si ya tengo una herramienta seleccionada comienzo el dibujo
                 this.startDraw(e.offsetX, e.offsetY);
             }
         });
 
-        document.addEventListener('mousemove', (e) => {
+        canvas.addEventListener('mousemove', (e) => {
             if(this.isInUse){
                 this.continueDraw(e.offsetX, e.offsetY);
             }
@@ -43,6 +44,11 @@ export class ToolsController{
         document.addEventListener('mouseup', (e) => {
             this.isInUse = false;
         });
+
+        canvas.addEventListener('mouseleave', () => {
+        this.isInUse = false;
+        });
+
     }
 
 
@@ -70,5 +76,7 @@ export class ToolsController{
     setTool(tool){
         this.tool = tool;
     }
+
+    
 
 }
