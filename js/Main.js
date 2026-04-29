@@ -68,3 +68,36 @@ document.querySelector("#load").addEventListener("click", (e) => {
 input.addEventListener("change", (e) =>{
     cargar();
 });
+
+document.querySelector(".sizePicker").addEventListener('input', (e) => {
+    let value = e.target.value;
+    toolController.setTamaño(value);
+});
+
+document.querySelector("#colorPicker").addEventListener("input",(e)=>{
+    toolController.setColor(e.target.value);
+});
+
+document.querySelector("#download")
+    .addEventListener("click", descargarImagen);
+
+function descargarImagen(){
+
+    const link = document.createElement("a");
+
+    link.download = "mi-imagen.png";
+    link.href = CANVAS.toDataURL("image/png");
+
+    link.click();
+}
+
+let popup = document.querySelector("#popupInicio");
+
+document.querySelector("#btnBlanco").addEventListener('click', (e) =>{
+    popup.style.display = "none";
+});
+
+document.querySelector("#btnImagen").addEventListener("click", () => {
+    popup.style.display = "none";
+    input.click();
+});

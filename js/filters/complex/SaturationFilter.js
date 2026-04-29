@@ -143,4 +143,8 @@ export class SaturationFilter extends Filter{
         }
     }
 
+    setValor(valor){
+        this.factor = valor;
+    }
+
 }

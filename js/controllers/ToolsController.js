@@ -12,6 +12,7 @@ export class ToolsController{
         this.tool = null;
         this.isInUse = false;
         this.size = 10;
+        this.color = "black";
         this.waitMouseEvents();
     }
     
@@ -62,7 +63,13 @@ export class ToolsController{
      * @param {number} y - coordenada y del canvas.
      */
 
-    startDraw( x, y){
+    startDraw( x, y){ 
+        this.ctx.lineWidth = this.size;
+
+        if(this.tool.getDescripcion() === "pen"){
+            this.ctx.strokeStyle = this.color;
+        }
+
         this.tool.startDraw(this.ctx, x, y);
         this.isInUse = true;
     }
@@ -77,6 +84,12 @@ export class ToolsController{
         this.tool = tool;
     }
 
-    
+    setTamaño(tamaño){
+        this.size = Number(tamaño);
+    }
+
+    setColor(color){
+        this.color = color;
+    }
 
 }

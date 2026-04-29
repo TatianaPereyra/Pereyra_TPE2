@@ -1,6 +1,12 @@
 //Clase "abstracta" de herramientas para definir comportamiento similar.
 export class Tool{
-    //constructor vacio
+    constructor(descripcion){
+        this.descripcion = descripcion;
+    }
+
+    getDescripcion(){
+        return this.descripcion;
+    }
 
     startDraw(ctx, x, y){
         ctx.beginPath();

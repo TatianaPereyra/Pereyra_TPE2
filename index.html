@@ -12,16 +12,60 @@
     <div id="main">
 
         <div id="filters">
-                <button class="btn" id="original">Original</button>
-                <button class="btn" id="grises">Escala de Grises</button>
-                <button class="btn" id="sepia"">Sepia</button>
-                <button class="btn" id="brillo">Brillo</button>
-                <button class="btn" id="negativo">Negativo</button>
-                <button class="btn" id="blur">Blur</button>
-                <button class="btn" id="saturacion">Saturacion</button>
-                <button class="btn" id="borderD">Deteccion de Bordes</button>
-                <button class="btn" id="sharpen">Sharpen</button>
-                <button class="btn" id="relieve">Bajorrelieve</button>  
+                <button class="btn filter-btn" id="original">
+                    <img src="img/original (1).png" alt="sin filtro" class="img-tools">
+                    Original
+                </button>
+
+                <button class="btn filter-btn" id="grises">
+                    <img src="img/grises (1).png" alt="escala de grises" class="img-tools">
+                    Escala de Grises
+                </button>
+
+                <button class="btn filter-btn" id="sepia">
+                    <img src="img/sepia (1).png" alt="sepia" class="img-tools">
+                    Sepia
+                </button>
+
+                <button class="btn filter-btn" id="brillo">
+                    <img src="img/brillo (1).png" alt="brillo" class="img-tools">
+                    Brillo
+                </button>
+
+                <button class="btn filter-btn" id="binarizacion">
+                    <img src="img/binario (1).png" alt="blanco y negro" class="img-tools">
+                    Blanco y Negro
+                </button>
+
+                <button class="btn filter-btn" id="negativo">
+                    <img src="img/negativo (1).png" alt="negativo" class="img-tools">
+                    Negativo
+                </button>
+
+                <button class="btn filter-btn" id="blur">
+                    <img src="img/blur (1).png" alt="blur" class="img-tools">
+                    Blur
+                </button>
+
+                <button class="btn filter-btn" id="saturacion">
+                    <img src="img/saturacion (1).png" alt="saturacion" class="img-tools">
+                    Saturacion
+                </button>
+
+                <button class="btn filter-btn" id="borderD">
+                    <img src="img/bordeD (1).png" alt="deteccion de bordes" class="img-tools">
+                    Deteccion de Bordes
+                </button>
+
+                <button class="btn filter-btn" id="sharpen">
+                    <img src="img/sharpen (1).png" alt="sharpen" class="img-tools">
+                    Sharpen
+                </button>
+
+                <button class="btn filter-btn" id="relieve">
+                    <img src="img/bajorrelieve (1).png" alt="bajorrelieve" class="img-tools">
+                    Bajorrelieve
+                </button>  
                 
                 <div id="adicional"> </div>
                 
@@ -34,10 +78,12 @@
         <div id="herramientas">
             <button id="pen" class="btn">
                 <img src="img/lapiz.png" alt="pen" class="img-tools">
+                Lapiz
             </button>
 
             <button id="eraser" class="btn">
                 <img src="img/eraser.png" alt="eraser" class="img-tools">
+                Goma
             </button>
         
             <button class="btn" id="load">
@@ -52,10 +98,43 @@
                 Descargar
             </button>
 
-            <button id="clean">Limpiar Lienzo</button>
+            <div class="herramienta-controls">
+
+                <input type="color" id="colorPicker">
+
+                <label>Tamaño</label>
+                <input type="range" min="1" max="50" value="10" id="sizePicker" class="sizePicker">
+
+            </div>
+
+            <button id="clean" class="btn">Limpiar Lienzo</button>
         
         </div>
         
+    </div>
+
+    <div id="popupInicio">
+        <div id="contenidoPopup">
+
+            <h2>Bienvenido a Paint</h2>
+            <p>¿Cómo querés comenzar?</p>
+            <p>Elija una de las siguientes opciones para comenzar</p>
+
+            <div id="options">
+            <button id="btnBlanco" class="btn">
+                <img src="img/logoVacio.png" alt="lienzo vacio" class="img-tools">
+                Lienzo en blanco
+                <span >Comience un nuevo proyecto en un lienzo en blanco</span>
+            </button>
+
+            <button id="btnImagen" class="btn">
+                <img src="img/iconImagen-removebg-preview.png" alt="seleccionar imagen" class="img-tools">
+                Cargar imagen
+                <span>Comience un nuevo proyecto desde una imagen en su galeria</span>
+            </button>
+            </div>
+
+        </div>
     </div>
     
     <script type="module" src="js/Main.js"></script>

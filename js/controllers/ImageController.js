@@ -21,6 +21,8 @@ export class ImageController{
         this.image = new Image();
         this.originalImageData = null;
         this.copiaImageData = null; //modifico la copia
+        this.filtroActivo = null;
+        this.valorActual = -1;
         this.waitButton();
     }
 
@@ -50,17 +52,31 @@ export class ImageController{
 
     limpiarControles(){
         document.querySelector("#adicional").innerHTML = "";
+        this.filtroActivo = null;
+        this.valorActual = 1;
     }
 
-    crearControles(){
+    crearSlider(){
+        let min = -1;
+        let max = 2;
+        let step = 0.1;
+
         let contenedor = document.querySelector("#adicional");
+
         contenedor.innerHTML = `
-            <div id="control-brillo">
-                <button id="menos">-</button>
-                <span id="valorBrillo">0</span>
-                <button id="mas">+</button>
-            </div>
-            `;
+            <input type="range"
+                id="sliderFiltro"
+                class="sizePicker"
+                min="${min}"
+                max="${max}"
+                step="${step}"
+                value="${this.valorActual}">
+        `;
+
+        document.querySelector("#sliderFiltro").addEventListener("input", (e)=>{
+            this.valorActual = Number(e.target.value);
+            this.aplicarFiltro(this.filtroActivo);
+        });
     }
 
     verificarImagen(){
@@ -113,6 +129,16 @@ export class ImageController{
             this.limpiarControles();
             this.aplicarFiltro("sepia");
         });
+
+        document.querySelector("#binarizacion").addEventListener('click', (e) => {
+            if(this.verificarImagen()){
+                this.mostrarAviso();
+                return;
+            }
+
+            this.limpiarControles();
+            this.aplicarFiltro("binario");
+        });
         
         //filtro de brillo, creo los controles necesarios
         document.querySelector("#brillo").addEventListener("click", () => {
@@ -121,7 +147,8 @@ export class ImageController{
                 return;
             }
 
-            this.crearControles();
+            this.filtroActivo = "brillo";
+            this.crearSlider();
         });
 
         //negativo
@@ -153,7 +180,8 @@ export class ImageController{
                 return;
             }
 
-           this.crearControles();
+            this.filtroActivo = "saturation";
+           this.crearSlider();
         });
 
         //deteccion de bordes
@@ -216,17 +244,28 @@ export class ImageController{
 
         switch(tipo){
             case "grises": filtro = new GrisFilter();break;
+
             case "sepia": filtro = new SepiaFilter();break;
-            case "brillo": filtro = new BrilloFilter();break;
+
+            case "brillo": filtro = new BrilloFilter();
+                            filtro.setValor(this.valorActual);break;
+
             case "negativo": filtro = new NegativoFilter();break;
+
             case "binario": filtro = new BinarioFilter();break;
+
             case "blur": filtro = new ConvultionFilter(kernels.blur.matriz, kernels.blur.factor,
                                                        kernels.blur.width, kernels.blur.height);break;
-            case "saturation": filtro = new SaturationFilter;break;
+
+            case "saturation": filtro = new SaturationFilter();
+                                filtro.setValor(this.valorActual);break;
+
             case "borderD": filtro = new ConvultionFilter(kernels.bordes.matriz, kernels.bordes.factor,
                                                           kernels.bordes.width, kernels.bordes.height);break;
+
             case "sharpen": filtro = new ConvultionFilter(kernels.sharpen.matriz, kernels.sharpen.factor,
                                                           kernels.sharpen.width, kernels.sharpen.height);break;
+
             case "relieve": filtro = new ConvultionFilter(kernels.relieve.matriz, kernels.relieve.factor,
                                                           kernels.relieve.width, kernels.relieve.height);break;
             default: break;
