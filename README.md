@@ -28,7 +28,7 @@ De este modo, el controlador se encarga de instanciar el filtro con el kernel ad
 
 ## Uso:
 El usuario puede cargar una imagen mediante el botón de subir foto y también descargar el resultado final.
-A la imagen cargada se le pueden aplicar los siguientes filtros:
+A la imagen cargada se le pueden aplicar los siguientes filtros (no es posible combinar filtros, cada filtro se aplica a la imagen original):
 - Escala de grises  
 - Sepia  
 - Brillo (con controles para ajustar la intensidad)  
